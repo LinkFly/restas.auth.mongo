@@ -35,6 +35,10 @@
   (mongo:collection db users-collection))
 ;(defparameter *users-col* (get-users-collection *cur-db*))
 
+(defun get-user (col user)
+  (mongo:find-one col
+                  :query (mongo::son "user" user)))
+
 (defun save-user (col user pass)
   (aif (get-user col user)
        (mongo:update-op col 
@@ -54,9 +58,7 @@
           (mongo:find-list col :query (mongo::son))))
 ;(get-all-users *users-col*)
 
-(defun get-user (col user)
-  (mongo:find-one col
-                  :query (mongo::son "user" user)))
+
 
 (defun get-user-password (col user)
   ;(setf user "LinkFly")
