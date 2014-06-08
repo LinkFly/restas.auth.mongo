@@ -83,7 +83,7 @@
 ;(defparameter storage (make-instance 'mongo-storage))
            
 (defmethod store-user-pass (user pass (storage mongo-storage) &aux data pathname)
-  (save-user (users-col-of storage) user pass))
+  (save-user (users-col-of storage) user (maybe-hashing-password pass storage)))
 
 (defmethod get-user-pass (user (storage mongo-storage))
   (get-user-password (users-col-of storage) user))
